@@ -3,7 +3,7 @@ var Engine = Matter.Engine,
     Events = Matter.Events,
     Bodies = Matter.Bodies; 
 
-var particles = [];
+var particle ;
 var plinkos = [];
 var divisions =[];
 
@@ -66,32 +66,33 @@ function draw() {
   for (var i = 0; i < plinkos.length; i++) {
      plinkos[i].display();  
   }
- 
-  for (var j = 0; j < particles.length; j++) {
-     particles[j].display();
-      
-     if (particles[j].body.position.x < 300 && particles[j].body.position.y>760) {
+  for (var k = 0; k < divisions.length; k++) {
+    divisions[k].display();
+  }
+  if(particle!==undefined){
+    particle.display();
+    if(particle.body.position.y>760){
+     if (particle.body.position.x < 300  ) {
       score=score+500;
-      particles.pop();
+      particle=null;
      }
-    else if (particles[j].body.position.x < 600 && particles[j].body.position.x > 301 && particles[j].body.position.y > 760) {
+    else if (particle.body.position.x < 600 && particle.body.position.x > 301 ) {
       score = score + 100;
-      particles.pop();
+      particle=null;
     }
-    else if (particles[j].body.position.x < 900 && particles[j].body.position.x > 601 && particles[j].body.position.y > 760) {
+    else if (particle.body.position.x < 900 && particle.body.position.x > 601 ) {
       score = score + 200;
-      particles.pop();
+      particle=null;
     }
+  }
    }
+  
+   
+  } 
 
-   for (var k = 0; k < divisions.length; k++) {
-     divisions[k].display();
-   }
- 
-}
 function mousePressed(){
   if(gameState!=="end"){
       count++;
-     particles.push(new Particle(mouseX, 10, 10, 10)); 
+     particle=new Particle(mouseX, 10, 10, 10); 
   }   
 }
